@@ -1,5 +1,5 @@
 import argparse
-from src.commands import add_command, list_command, summary_command, delete_command
+from src.commands import add_command, list_command, summary_command, delete_command, budget_command
 
 def setup_parser():
     parser = argparse.ArgumentParser(
@@ -7,6 +7,10 @@ def setup_parser():
         description="CLI tool to add, update, delete, and track expenses"
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    budget_parser = subparsers.add_parser("budget", help="set a budget total for the month")
+    budget_parser.add_argument("-a", "--amount", type=float, help="budget total for the month")
+    budget_parser.set_defaults(func=budget_command)
 
     add_parser = subparsers.add_parser("add", help="add expense to record")
     add_parser.add_argument("-d", "--description", required=True, type=str, help="description of expense")
