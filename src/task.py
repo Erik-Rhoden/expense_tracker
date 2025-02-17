@@ -22,11 +22,15 @@ def read_json_file(json_file):
         return json.load(file)
     
 def budget(args):
+    json_file = read_json_file('data/task.json')
+
+    date_num = datetime.now().strftime("%m")
+
     budget = {
         "date": datetime.now().strftime("%B"),
-        'date_num': datetime.now().strftime("%m"),
+        'date_num': date_num,
         "amount": format(args.amount, '.2f'),
-        "used": 0
+        "used": sum(float(entry['amount']) for entry in json_file if entry['date'][5:7] == date_num)
     }
     with open('data/budget.json', 'w') as file:
         json.dump(budget, file, indent=4)
