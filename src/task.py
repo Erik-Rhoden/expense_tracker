@@ -38,10 +38,28 @@ def get_id(json_file):
     return max(item['id'] for item in json_file) + 1 if len(json_file) else 1
 
 def list_expense(args):
-    return args
+    json_file = read_json_file()
+
+    headers = ["ID", "Description", "Category", "Amount"]
+
+    print("{: <5} {: <30} {: <20} {: <10}".format(*headers))
+    print("-" * 65)
+    for file in json_file:
+        print("{: <5} {: <30} {: <20} {: <10}".format(str(file['id']), file['description'], file['category'], file['amount']))
+    return
 
 def delete_expense(args):
-    return args
+    json_file = read_json_file()
+
+    remaining_expenses = []
+
+    for file in json_file:
+        if file['id'] == args.id:
+            continue
+        remaining_expenses.append(file)
+
+    with open('data/task.json', 'w') as file:
+        json.dump(remaining_expenses, file, indent=4)
 
 def summary(args):
     return args

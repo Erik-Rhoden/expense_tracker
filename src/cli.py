@@ -11,7 +11,7 @@ def setup_parser():
     add_parser = subparsers.add_parser("add", help="add expense to record")
     add_parser.add_argument("-d", "--description", required=True, type=str, help="description of expense")
     add_parser.add_argument("-c", "--category", type=str, required=True, help="categorize the expense")
-    add_parser.add_argument("-a", "--amount", type=float, default=0, help="dollar amount of expense added")
+    add_parser.add_argument("-a", "--amount", type=float, required=True, help="dollar amount of expense added")
     add_parser.set_defaults(func=add_command)
 
     list_parser = subparsers.add_parser("list", help="list expenses")
